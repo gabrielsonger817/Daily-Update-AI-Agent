@@ -10,6 +10,43 @@ _INDICES = {
     "VIX": "^VIX",
 }
 
+# One-word industry/category label for each watchlist ticker
+_LABELS: Dict[str, str] = {
+    "NVDA":  "Semiconductors",
+    "MSFT":  "Software",
+    "GOOGL": "Tech",
+    "TSM":   "Semiconductors",
+    "AVGO":  "Semiconductors",
+    "WELL":  "Healthcare REIT",
+    "PLD":   "Logistics REIT",
+    "AMT":   "Tower REIT",
+    "BX":    "Private Equity",
+    "APO":   "Private Equity",
+    "KKR":   "Private Equity",
+    "JPM":   "Banking",
+    "BAC":   "Banking",
+    "WFC":   "Banking",
+    "CAT":   "Industrials",
+    "BIP":   "Infrastructure",
+    "NEE":   "Utilities",
+    "XOM":   "Energy",
+    "CVX":   "Energy",
+    "COP":   "Energy",
+    "NEM":   "Gold Mining",
+    "AEM":   "Gold Mining",
+    "FNV":   "Gold Royalties",
+    "WPM":   "Silver Royalties",
+    "MSTR":  "Bitcoin",
+    "COIN":  "Crypto Exchange",
+    "TSLA":  "EV",
+    "TM":    "Auto",
+    "GM":    "Auto",
+    "IBIT":  "Bitcoin ETF",
+    "VOO":   "S&P 500 ETF",
+    "VTWO":  "Russell 2000 ETF",
+    "QQQM":  "Nasdaq ETF",
+}
+
 
 def _fetch_ticker(symbol: str) -> Dict | None:
     try:
@@ -35,6 +72,7 @@ def get_stock_data() -> Dict:
     for symbol in STOCK_WATCHLIST:
         result = _fetch_ticker(symbol)
         if result:
+            result["label"] = _LABELS.get(symbol, "")
             watchlist[symbol] = result
 
     return {"indices": indices, "watchlist": watchlist}

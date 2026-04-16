@@ -28,7 +28,8 @@ def _fmt_stocks(stocks: Dict) -> str:
     lines = []
     for name, d in stocks.items():
         arrow = "▲" if d["change_pct"] >= 0 else "▼"
-        lines.append(f"  {name}: ${d['price']} {arrow}{abs(d['change_pct']):.2f}%")
+        label = f" [{d['label']}]" if d.get("label") else ""
+        lines.append(f"  {name}{label}: ${d['price']} {arrow}{abs(d['change_pct']):.2f}%")
     return "\n".join(lines)
 
 
